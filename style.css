@@ -110,7 +110,7 @@ h1::after {
   text-align: center;
   font-size: clamp(0.6rem, 1.5vw, 0.78rem);
   letter-spacing: 0.25em;
-  color: rgba(255,255,255,0.45);
+  color: rgba(255,255,255,0.68);
   text-transform: uppercase;
   margin-top: 5px;
   font-weight: 400;
@@ -139,14 +139,14 @@ h1::after {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 9px 22px;
-  border-radius: 26px;
+  padding: 7px 18px;
+  border-radius: 24px;
   border: 1px solid rgba(255,255,255,0.18);
   background: rgba(0,0,0,0.35);
   color: rgba(255,255,255,0.7);
   cursor: pointer;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.93rem;
   font-weight: 700;
   transition: all 0.2s;
   backdrop-filter: blur(8px);
