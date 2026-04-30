@@ -16,7 +16,6 @@
 
 /* ===== Reset ===== */
 *, *::before, *::after { box-sizing: border-box; outline: none; margin: 0; padding: 0; }
-
 html { -webkit-text-size-adjust: 100%; }
 
 body {
@@ -123,11 +122,55 @@ h1::after {
   flex-direction: column;
   align-items: center;
   margin-bottom: 2rem;
-  gap: 14px;
+  gap: 10px;
   width: 100%;
 }
 
-/* 搜索框主体 */
+/* ===== 分类 Tab ===== */
+.search-tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.search-tab {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(0,0,0,0.35);
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.83rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  white-space: nowrap;
+}
+
+.search-tab:hover {
+  background: rgba(76,175,80,0.15);
+  border-color: rgba(76,175,80,0.4);
+  color: #fff;
+}
+
+.search-tab.active {
+  background: rgba(76,175,80,0.25);
+  border-color: var(--primary);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(76,175,80,0.3);
+}
+
+.tab-icon { font-size: 0.9rem; }
+.tab-label { font-size: 0.83rem; }
+
+/* ===== 搜索框 ===== */
 .search-box {
   display: flex;
   align-items: center;
@@ -136,16 +179,14 @@ h1::after {
   -webkit-backdrop-filter: blur(20px);
   border: 2px solid var(--glass-border);
   border-radius: 50px;
-  /* 修复：给左右两侧明确的 padding，避免内容溢出 */
-  padding: 5px 8px 5px 12px;
+  padding: 5px 8px 5px 14px;
   box-shadow: var(--glass-shadow);
   width: 100%;
   max-width: 700px;
   min-width: 0;
-  gap: 6px;
+  gap: 8px;
 }
 
-/* 搜索引擎图标 */
 #search-engine-icon {
   width: 18px;
   height: 18px;
@@ -154,30 +195,15 @@ h1::after {
   flex-shrink: 0;
 }
 
-/* 搜索引擎下拉 */
-.search-box select {
-  background: transparent;
-  color: #fff;
-  border: none;
-  padding: 0 2px;
-  cursor: pointer;
-  font-weight: 600;
+.engine-name {
   font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
   flex-shrink: 0;
-  /* 修复：限制最小宽度避免和箭头撞在一起，使用 appearance 统一箭头样式 */
-  min-width: 48px;
-  max-width: 72px;
-  -webkit-appearance: none;
-  appearance: none;
-  /* 自定义下拉箭头，放在右侧不会与文字重叠 */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='rgba(255,255,255,0.6)'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 4px center;
-  padding-right: 16px;
+  min-width: 36px;
 }
-.search-box select option { background: #222; color: #fff; }
 
-/* 分割线 */
 .search-divider {
   width: 1px;
   height: 20px;
@@ -185,7 +211,6 @@ h1::after {
   flex-shrink: 0;
 }
 
-/* 搜索输入框 */
 .search-box input[type="text"] {
   flex: 1;
   background: transparent;
@@ -200,7 +225,6 @@ h1::after {
 }
 .search-box input[type="text"]::placeholder { color: rgba(255, 255, 255, 0.65); }
 
-/* 搜索按钮 */
 .search-box button {
   background: var(--primary);
   border: none;
@@ -217,6 +241,57 @@ h1::after {
   font-size: 1rem;
 }
 .search-box button:active { transform: scale(0.93); background: #388E3C; }
+
+/* ===== 引擎快捷按钮 ===== */
+.engine-list {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 700px;
+  width: 100%;
+}
+
+.engine-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(0,0,0,0.3);
+  color: rgba(255,255,255,0.65);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: all 0.18s;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  white-space: nowrap;
+}
+
+.engine-btn img {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.engine-btn:hover {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.3);
+  color: #fff;
+}
+
+.engine-btn.active {
+  background: rgba(76,175,80,0.2);
+  border-color: var(--primary);
+  color: #fff;
+  box-shadow: 0 0 8px rgba(76,175,80,0.25);
+}
 
 /* ===== 分区 ===== */
 .section {
@@ -272,7 +347,6 @@ h1::after {
   padding: 11px;
   gap: 5px;
   height: 100%;
-  /* 防止点击穿透到不存在区域 */
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -338,7 +412,6 @@ h1::after {
     z-index: 100;
     word-break: break-all;
     white-space: normal;
-    /* 确保不超出屏幕右边 */
     max-width: calc(100vw - 24px);
   }
 
@@ -348,17 +421,14 @@ h1::after {
   }
 }
 
-/* ===== 触屏：长按弹出 tooltip（移动端） ===== */
-/* 使用 JS 控制的 .touch-active 类，替代 hover */
+/* ===== 触屏：长按弹出 tooltip ===== */
 @media (hover: none) {
-  /* 禁用 hover 效果，改为 active */
   .card:active {
     background: rgba(255,255,255,0.18);
     border-color: var(--primary);
   }
 
   .card .info-popup {
-    /* 移动端：固定在视口底部，不随卡片位置偏移 */
     position: fixed;
     bottom: 20px;
     left: 50%;
@@ -376,28 +446,14 @@ h1::after {
     word-break: break-all;
     white-space: normal;
     transition: opacity 0.2s;
-    /* 移动端额外显示域名标签 */
     text-align: center;
     box-shadow: 0 4px 20px rgba(0,0,0,0.6);
   }
 
-  .card.touch-active .info-popup {
-    opacity: 1;
-  }
+  .card.touch-active .info-popup { opacity: 1; }
 }
 
-/* 隐藏卡片 */
 .card.hidden { display: none; }
-
-/* ===== 无结果提示 ===== */
-.no-result-tip {
-  display: none;
-  text-align: center;
-  color: rgba(255,255,255,0.45);
-  font-size: 0.9rem;
-  padding: 1.2rem 0 0.4rem;
-  grid-column: 1 / -1;
-}
 
 /* ===== 响应式断点 ===== */
 @media (max-width: 1200px) {
@@ -423,23 +479,13 @@ h1::after {
     padding: 4px 8px 4px 10px;
     gap: 4px;
   }
-  .search-box select {
-    font-size: 0.78rem;
-    min-width: 44px;
-    max-width: 64px;
-    padding-right: 14px;
-  }
-  .search-box input[type="text"] {
-    font-size: 0.9rem;
-    height: 38px;
-  }
-  .search-box button {
-    width: 34px;
-    height: 34px;
-    font-size: 0.9rem;
-  }
+  .engine-name { font-size: 0.78rem; min-width: 28px; }
+  .search-box input[type="text"] { font-size: 0.9rem; height: 38px; }
+  .search-box button { width: 34px; height: 34px; font-size: 0.9rem; }
 
-  .local-search { font-size: 0.85rem; padding: 9px 14px; }
+  .search-tab { padding: 4px 10px; font-size: 0.78rem; }
+  .tab-icon { font-size: 0.82rem; }
+  .engine-btn { padding: 4px 9px; font-size: 0.75rem; }
 
   .section { padding: 0.9rem 0.75rem; border-radius: 14px; }
   .link-container { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
@@ -454,4 +500,5 @@ h1::after {
   .link-container { grid-template-columns: repeat(3, 1fr); gap: 0.4rem; }
   .card { padding: 7px 5px; }
   .card .title { font-size: 0.7rem; }
+  .search-tab { padding: 3px 8px; }
 }
