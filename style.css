@@ -257,14 +257,14 @@ h1::after {
   display: flex;
   align-items: center;
   gap: 5px;
-  padding: 6px 14px;
+  padding: 7px 16px;
   border-radius: 18px;
   border: 1px solid rgba(255,255,255,0.12);
   background: rgba(0,0,0,0.22);
   color: rgba(255,255,255,0.7);
   cursor: pointer;
   font-family: inherit;
-  font-size: 0.88rem;
+  font-size: 0.93rem;
   font-weight: 600;
   transition: all 0.18s;
   backdrop-filter: blur(8px);
