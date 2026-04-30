@@ -8,6 +8,85 @@ const LINKS_FILE  = 'links.json';
 
 const DEFAULT_ICON = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiPjwvY2lyY2xlPjxwYXRoIGQ9Ik0yIDEyaDIwIj48L3BhdGg+PHBhdGggZD0iTTEyIDJhMTUuMyAxNS4zIDAgMCAxIDQgMTAgMTUuMyAxNS4zIDAgMCAxLTQgMTAgMTUuMyAxNS4zIDAgMCAxLTQtMTAgMTUuMyAxNS4zIDAgMCAxIDQtMTB6Ij48L3BhdGg+PC9zdmc+';
 
+/* ── 搜索分类数据 ── */
+const SEARCH_CATEGORIES = [
+  {
+    id: 'engine',
+    label: '引擎',
+    icon: '🔍',
+    engines: [
+      { name: '百度',   icon: '🔵', url: 'https://www.baidu.com/s?wd=',           domain: 'baidu.com' },
+      { name: 'Google', icon: '🌐', url: 'https://www.google.com/search?q=',      domain: 'google.com' },
+      { name: 'Brave',  icon: '🦁', url: 'https://search.brave.com/search?q=',    domain: 'search.brave.com' },
+      { name: '搜狗',   icon: '🐶', url: 'https://www.sogou.com/web?query=',      domain: 'sogou.com' },
+      { name: 'Bing',   icon: '🔷', url: 'https://www.bing.com/search?q=',        domain: 'bing.com' },
+      { name: '360',    icon: '🟢', url: 'https://www.so.com/s?q=',               domain: 'so.com' },
+      { name: '夸克',   icon: '⚡', url: 'https://www.quark.cn/s?q=',             domain: 'quark.cn' },
+    ]
+  },
+  {
+    id: 'community',
+    label: '社区',
+    icon: '💬',
+    engines: [
+      { name: 'GitHub',  icon: '🐱', url: 'https://github.com/search?q=',                           domain: 'github.com' },
+      { name: '微博',    icon: '🌊', url: 'https://s.weibo.com/weibo?q=',                            domain: 'weibo.com' },
+      { name: '知乎',    icon: '🔵', url: 'https://www.zhihu.com/search?q=',                         domain: 'zhihu.com' },
+      { name: '豆瓣',    icon: '🟢', url: 'https://www.douban.com/search?q=',                        domain: 'douban.com' },
+      { name: '公众号',  icon: '💚', url: 'https://weixin.sogou.com/weixin?type=2&query=',           domain: 'weixin.sogou.com' },
+    ]
+  },
+  {
+    id: 'video',
+    label: '视频',
+    icon: '🎬',
+    engines: [
+      { name: 'B站',   icon: '📺', url: 'https://search.bilibili.com/all?keyword=', domain: 'bilibili.com' },
+      { name: '腾讯',  icon: '🐧', url: 'https://v.qq.com/search.html#stag=0&s=',  domain: 'v.qq.com' },
+      { name: '爱奇艺', icon: '🟢', url: 'https://so.iqiyi.com/so/q_',              domain: 'iqiyi.com' },
+      { name: '优酷',  icon: '🔵', url: 'https://so.youku.com/search_video/q_',    domain: 'youku.com' },
+      { name: '芒果',  icon: '🟡', url: 'https://so.mgtv.com/so/k-',               domain: 'mgtv.com' },
+    ]
+  },
+  {
+    id: 'music',
+    label: '音乐',
+    icon: '🎵',
+    engines: [
+      { name: 'QQ音乐', icon: '🟢', url: 'https://y.qq.com/portal/search.html#page=1&searchid=1&remoteplace=txt.yqq.top&t=song&w=', domain: 'y.qq.com' },
+      { name: '网易云', icon: '🔴', url: 'https://music.163.com/#/search/m/?s=',                                                    domain: 'music.163.com' },
+    ]
+  },
+  {
+    id: 'life',
+    label: '生活',
+    icon: '🛒',
+    engines: [
+      { name: '淘宝',  icon: '🟠', url: 'https://s.taobao.com/search?q=',                    domain: 'taobao.com' },
+      { name: '京东',  icon: '🔴', url: 'https://search.jd.com/Search?keyword=',             domain: 'jd.com' },
+      { name: '拼多多', icon: '🟣', url: 'https://mobile.yangkeduo.com/search_result.html?search_key=', domain: 'pinduoduo.com' },
+      { name: '做菜',  icon: '🍳', url: 'https://www.xiachufang.com/search/?keyword=',        domain: 'xiachufang.com' },
+      { name: '翻译',  icon: '🌐', url: 'https://fanyi.baidu.com/#zh/en/',                   domain: 'fanyi.baidu.com' },
+    ]
+  },
+  {
+    id: 'job',
+    label: '求职',
+    icon: '💼',
+    engines: [
+      { name: '智联招聘', icon: '🔵', url: 'https://sou.zhaopin.com/?jl=530&kw=',          domain: 'zhaopin.com' },
+      { name: 'BOSS直聘', icon: '🟡', url: 'https://www.zhipin.com/web/geek/job?query=',   domain: 'zhipin.com' },
+      { name: '猎聘',     icon: '🟠', url: 'https://www.liepin.com/zhaopin/?key=',         domain: 'liepin.com' },
+      { name: '前程无忧', icon: '🔴', url: 'https://search.51job.com/list/000000,000000,0000,00,9,99,',  domain: '51job.com' },
+      { name: '拉勾网',   icon: '🟢', url: 'https://www.lagou.com/wn/jobs?kd=',            domain: 'lagou.com' },
+    ]
+  },
+];
+
+/* 当前选中的分类和引擎 */
+let currentCategoryId = 'engine';
+let currentEngine     = SEARCH_CATEGORIES[0].engines[0];
+
 /* ── 工具：获取域名 ── */
 function getDomain(url) {
   try { return new URL(url).hostname; } catch { return null; }
@@ -19,34 +98,94 @@ function faviconSrc(url) {
   return d ? `${FAVICON_API}${d}` : DEFAULT_ICON;
 }
 
-/* ── 更新搜索引擎图标 ── */
-function updateSearchIcon() {
-  const sel  = document.getElementById('engine');
-  const icon = document.getElementById('search-engine-icon');
-  const d    = getDomain(sel.value);
-  icon.onerror = () => { icon.src = DEFAULT_ICON; icon.onerror = null; };
-  icon.src = d ? `${FAVICON_API}${d}` : DEFAULT_ICON;
+function engineFavicon(engine) {
+  return `${FAVICON_API}${engine.domain}`;
 }
-window.updateSearchIcon = updateSearchIcon;
+
+/* ── 渲染搜索分类 Tab ── */
+function renderSearchTabs() {
+  const tabsEl = document.getElementById('searchTabs');
+  tabsEl.innerHTML = '';
+  SEARCH_CATEGORIES.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'search-tab' + (cat.id === currentCategoryId ? ' active' : '');
+    btn.innerHTML = `<span class="tab-icon">${cat.icon}</span><span class="tab-label">${cat.label}</span>`;
+    btn.onclick = () => selectCategory(cat.id);
+    tabsEl.appendChild(btn);
+  });
+}
+
+/* ── 渲染引擎按钮列表 ── */
+function renderEngineList() {
+  const listEl = document.getElementById('engineList');
+  listEl.innerHTML = '';
+  const cat = SEARCH_CATEGORIES.find(c => c.id === currentCategoryId);
+  if (!cat) return;
+
+  cat.engines.forEach(engine => {
+    const btn = document.createElement('button');
+    btn.className = 'engine-btn' + (engine === currentEngine ? ' active' : '');
+
+    const img = document.createElement('img');
+    img.src = engineFavicon(engine);
+    img.onerror = () => { img.style.display = 'none'; };
+    img.alt = engine.name;
+
+    const label = document.createElement('span');
+    label.textContent = engine.name;
+
+    btn.appendChild(img);
+    btn.appendChild(label);
+    btn.onclick = () => selectEngine(engine);
+    listEl.appendChild(btn);
+  });
+}
+
+/* ── 更新搜索框显示的引擎 ── */
+function updateSearchBoxEngine() {
+  const icon = document.getElementById('search-engine-icon');
+  const nameEl = document.getElementById('engineName');
+  icon.src = engineFavicon(currentEngine);
+  icon.onerror = () => { icon.src = DEFAULT_ICON; icon.onerror = null; };
+  nameEl.textContent = currentEngine.name;
+}
+
+/* ── 切换分类 ── */
+function selectCategory(catId) {
+  currentCategoryId = catId;
+  const cat = SEARCH_CATEGORIES.find(c => c.id === catId);
+  // 自动选中该分类第一个引擎
+  currentEngine = cat.engines[0];
+  renderSearchTabs();
+  renderEngineList();
+  updateSearchBoxEngine();
+}
+
+/* ── 切换引擎 ── */
+function selectEngine(engine) {
+  currentEngine = engine;
+  renderEngineList();
+  updateSearchBoxEngine();
+  // 聚焦搜索框
+  document.getElementById('searchInput').focus();
+}
 
 /* ── 执行搜索 ── */
 function doSearch() {
-  const engine = document.getElementById('engine').value;
-  const kw     = document.getElementById('searchInput').value.trim();
-  if (kw) window.open(engine + encodeURIComponent(kw), '_blank');
+  const kw = document.getElementById('searchInput').value.trim();
+  if (kw) window.open(currentEngine.url + encodeURIComponent(kw), '_blank');
 }
 window.doSearch = doSearch;
 
 /* ── 站内筛选 ── */
 function filterLinks() {
-  // 修改这里：改为获取 searchInput 的值
   const query = document.getElementById('searchInput').value.toLowerCase().trim();
 
   document.querySelectorAll('.card').forEach(card => {
     if (!query) {
       card.classList.remove('hidden');
     } else {
-      const title = card.querySelector('.title')?.innerText.toLowerCase() ?? '';
+      const title    = card.querySelector('.title')?.innerText.toLowerCase() ?? '';
       const datadesc = (card.dataset.desc ?? '').toLowerCase();
       card.classList.toggle('hidden', !title.includes(query) && !datadesc.includes(query));
     }
@@ -88,14 +227,12 @@ function renderCards(sections) {
       a.dataset.desc = item['data-desc'] ?? item.desc ?? '';
       a.rel = 'noopener noreferrer';
 
-      // Favicon
       const img = document.createElement('img');
       img.className = 'favicon';
       img.loading   = 'lazy';
       img.src       = faviconSrc(item.url);
       img.onerror   = function () { this.src = DEFAULT_ICON; this.onerror = null; };
 
-      // 标题行
       const top = document.createElement('div');
       top.className = 'card-top';
       const titleEl = document.createElement('span');
@@ -104,12 +241,10 @@ function renderCards(sections) {
       top.appendChild(img);
       top.appendChild(titleEl);
 
-      // 介绍
       const desc = document.createElement('div');
       desc.className = 'desc';
       desc.textContent = item.desc ?? '';
 
-      // Tooltip（显示域名）
       const popup = document.createElement('div');
       popup.className = 'info-popup';
       popup.textContent = getDomain(item.url) ?? item.url;
@@ -124,60 +259,36 @@ function renderCards(sections) {
     main.appendChild(sec);
   });
 
-  /* 为移动端绑定长按显示 tooltip */
   bindTouchTooltip();
 }
 
-/* ── 移动端长按 Tooltip ──
-   - touchstart 开始计时（500ms）
-   - touchend / touchmove 取消
-   - 点击卡片正常跳转，不触发 tooltip
-   - 长按才显示 tooltip，500ms 后自动消失
-*/
+/* ── 移动端长按 Tooltip ── */
 function bindTouchTooltip() {
-  // 仅在触屏设备执行
   if (window.matchMedia('(hover: none)').matches) {
     let timer = null;
     let activeCard = null;
 
     function clearActive() {
-      if (activeCard) {
-        activeCard.classList.remove('touch-active');
-        activeCard = null;
-      }
-      clearTimeout(timer);
-      timer = null;
+      if (activeCard) { activeCard.classList.remove('touch-active'); activeCard = null; }
+      clearTimeout(timer); timer = null;
     }
 
     document.querySelectorAll('.card').forEach(card => {
-      card.addEventListener('touchstart', e => {
+      card.addEventListener('touchstart', () => {
         clearActive();
         timer = setTimeout(() => {
-          // 长按：阻止跳转，显示 tooltip
           card.classList.add('touch-active');
           activeCard = card;
-          // 2s 后自动消失
           setTimeout(clearActive, 2000);
         }, 500);
       }, { passive: true });
 
-      card.addEventListener('touchend', () => {
-        // 短按（< 500ms）正常跳转，clearTimeout 阻止 tooltip 显示
-        if (timer) clearTimeout(timer);
-        // 注意：不 clearActive，让已弹出的 tooltip 保持到 2s
-      });
-
-      card.addEventListener('touchmove', () => {
-        clearTimeout(timer);
-        timer = null;
-      }, { passive: true });
+      card.addEventListener('touchend', () => { if (timer) clearTimeout(timer); });
+      card.addEventListener('touchmove', () => { clearTimeout(timer); timer = null; }, { passive: true });
     });
 
-    // 点击页面其他区域关闭 tooltip
     document.addEventListener('touchstart', e => {
-      if (activeCard && !activeCard.contains(e.target)) {
-        clearActive();
-      }
+      if (activeCard && !activeCard.contains(e.target)) clearActive();
     }, { passive: true });
   }
 }
@@ -190,11 +301,12 @@ function changeBackground() {
 
 /* ── 入口 ── */
 document.addEventListener('DOMContentLoaded', async () => {
-  // 背景
   changeBackground();
 
-  // 搜索引擎图标
-  updateSearchIcon();
+  // 初始化搜索分类
+  renderSearchTabs();
+  renderEngineList();
+  updateSearchBoxEngine();
 
   // 键盘回车搜索
   document.getElementById('searchInput').addEventListener('keydown', e => {
