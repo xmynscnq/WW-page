@@ -61,6 +61,12 @@
         "url": "https://unsplash.com/",
         "desc": "免费高清图片素材",
         "data-desc": "全球最大免费高清图片素材库，商用免版权，摄影图库"
+      },
+      {
+        "title": "王五博客",
+        "url": "https://wwdy.ccwu.cc",
+        "desc": "个人博客",
+        "data-desc": "王五的个人博客"
       }
     ]
   },
