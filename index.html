@@ -11,27 +11,23 @@
 <div id="bgLayer"></div>
 <div id="bgOverlay"></div>
 <div class="container">
-  <!-- 头部 -->
+  <!-- 头部：为了配合新 CSS，这里进行了精简 -->
   <div class="header-area">
-    <span class="header-icon">🧭</span>
-    <div>
-      <h1>王五导航</h1>
-      <p class="header-subtitle">沉舟侧畔千帆过，病树前头万木春。</p>
-    </div>
-    <span class="header-icon">✦</span>
+    <h1>王五</h1>
+    <p class="header-subtitle">沉舟侧畔千帆过，病树前头万木春。</p>
   </div>
 
-  <!-- 搜索区域 -->
+  <!-- 搜索区域：结构保持不变，确保 JS 正常运行 -->
   <div class="search-wrapper">
     <!-- 分类 Tab -->
     <div class="search-tabs" id="searchTabs"></div>
 
     <!-- 搜索框 -->
     <div class="search-box">
-      <img id="search-engine-icon" src="" alt="搜索引擎图标">
+      <img id="search-engine-icon" src="" alt="icon">
       <div class="engine-name" id="engineName"></div>
       <div class="search-divider"></div>
-      <input type="text" id="searchInput" placeholder="搜索网页 / 快速定位站内网站" autocomplete="off" oninput="filterLinks()" />
+      <input type="text" id="searchInput" placeholder="正在加载搜索引擎..." autocomplete="off" oninput="filterLinks()" />
       <button onclick="doSearch()" aria-label="搜索">🔍</button>
     </div>
 
@@ -39,9 +35,10 @@
     <div class="engine-list" id="engineList"></div>
   </div>
 
-  <!-- 链接分区（由 main.js 动态渲染） -->
+  <!-- 链接分区 -->
   <div id="main-content"></div>
 </div>
+
 <script src="main.js"></script>
 </body>
 </html>
