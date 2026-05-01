@@ -57,7 +57,7 @@ body {
 .header-area {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   gap: 14px;
   margin-bottom: 1.5rem;
   width: 100%;
@@ -248,7 +248,7 @@ h1::after {
   align-items: center;
   gap: 6px;
   flex-wrap: nowrap;          /* ← 改这里：禁止换行 */
-  justify-content: center;
+  justify-content: flex-start; 
   max-width: 700px;
   width: 100%;
   overflow-x: auto;           /* ← 新增：按钮过多时横向滚动 */
