@@ -182,7 +182,7 @@ h1::after {
   padding: 5px 8px 5px 14px;
   box-shadow: var(--glass-shadow);
   width: 100%;
-  max-width: 100%;
+  max-width: 700px;
   min-width: 0;
   gap: 8px;
 }
@@ -249,7 +249,7 @@ h1::after {
   gap: 6px;
   flex-wrap: nowrap;          /* ← 改这里：禁止换行 */
   justify-content: flex-start; 
-  max-width: 700px;
+  max-width: 100%;
   width: 100%;
   overflow-x: auto;           /* ← 新增：按钮过多时横向滚动 */
   scrollbar-width: none;      /* Firefox 隐藏滚动条 */
