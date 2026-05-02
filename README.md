@@ -61,6 +61,11 @@
 * `data-desc`：用于站内定位关键词
 * `desc` ：网站下方的介绍
 * `url`：网站地址
+  
+ 编辑 `main.js`：（可选）
+ 
+* 根据您的网站图标适配情况，可切换图标源：'google' 或 'duckduckgo'
+* const FAVICON_PROVIDER = 'duckduckgo';或const FAVICON_PROVIDER = 'google';
 
 ---
 
@@ -81,7 +86,7 @@
 2. 进入 **Workers & Pages**
 3. 创建一个 Worker
 4. 将项目中的 `worker.js` 代码复制进去
-5. 绑定一个自定义域名（推荐）
+5. 绑定一个自定义域名
 
 ---
 
